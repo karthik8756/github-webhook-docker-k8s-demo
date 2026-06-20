@@ -1,14 +1,12 @@
-cat > service.yaml <<'EOF'
 apiVersion: v1
 kind: Service
 metadata:
-  name: cicd-webapp-service
+  name: myweb-service
 spec:
-  type: NodePort
   selector:
-    app: cicd-webapp
+    app: myweb
   ports:
-  - port: 80
-    targetPort: 80
-    nodePort: 30082
-EOF
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort

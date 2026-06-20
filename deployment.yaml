@@ -1,14 +1,19 @@
-cat > ~/github-webhook-docker-k8s-demo/service.yaml <<'EOF'
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: myweb-service
+  name: myweb-deployment
 spec:
+  replicas: 1
   selector:
-    app: myweb
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: NodePort
-EOF
+    matchLabels:
+      app: myweb
+  template:
+    metadata:
+      labels:
+        app: myweb
+    spec:
+      containers:
+        - name: myweb
+          image: karthik8756/myweb:v1
+          ports:
+            - containerPort: 80
